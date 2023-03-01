@@ -3,7 +3,7 @@
     "path": "D:/Uni/TD/ProgTema3/Tema3.Rmd",
     "project_path": "Tema3.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "1799668290",
     "contents": "",
     "dirty": false,
     "created": 1677690707016.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "2,17",
+        "cursorPosition": "1,14",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1677689962,
+    "lastKnownWriteTime": 1677691000,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1677689962,
+    "last_content_update": 1677691000980,
     "read_only": false,
     "read_only_alternatives": []
 }
