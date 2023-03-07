@@ -376,25 +376,36 @@ covid_data$date &lt;- as.Date(covid_data$date, format = &quot;%Y-%m-%d&quot;)
 paises &lt;- c(&quot;Spain&quot;, &quot;United States&quot;, &quot;Italy&quot;, &quot;Germany&quot;, &quot;Portugal&quot;)
 covid_data &lt;- subset(covid_data, location %in% paises)
 
-ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, size = ifelse(location == &quot;Spain&quot;, &quot;Spain&quot;, &quot;Otros países&quot;))) +
+ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, 
+                        size = ifelse(location == &quot;Spain&quot;, &quot;Spain&quot;, &quot;Otros países&quot;))) +
   geom_line() +
-  scale_color_manual(values = c(&quot;United States&quot; = &quot;blue&quot;, &quot;Italy&quot; = &quot;red&quot;, &quot;Germany&quot; = &quot;green&quot;, &quot;Portugal&quot; = &quot;orange&quot;, &quot;Spain&quot; = &quot;black&quot;)) +
+  # Definir colores para cada país
+  scale_color_manual(values = c(&quot;United States&quot; = &quot;blue&quot;, &quot;Italy&quot; = &quot;red&quot;, &quot;Germany&quot; = &quot;green&quot;, 
+                                 &quot;Portugal&quot; = &quot;orange&quot;, &quot;Spain&quot; = &quot;black&quot;)) +
   scale_size_manual(values = c(&quot;Spain&quot; = 1.4, &quot;Otros países&quot; = 0.7)) +
+    # Eliminar leyenda para el tamaño
   guides(size = FALSE) +
   labs(title = &quot;Daily new confirmed COVID-19 deaths per million people&quot;,
        subtitle = &quot;7-day rolling average. For some countries the number of confirmed deaths is much lower than the number of deaths.&quot;,
        x = &quot;Fecha&quot;,
        y = &quot;Muertes por millón de habitantes&quot;) +
+  # Definir formato de fecha en eje x
   scale_x_date(date_labels = &quot;%b %d,%Y&quot;) +
+  # Rotar etiquetas del eje x
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=0.25)) +
+  # Añadir formato al título y subtítulo
   theme(plot.title = element_text(hjust = 0.35, face = &quot;bold&quot;, size = 16),
         plot.subtitle = element_text(hjust = 0.35, size = 9),
-        plot.margin = unit(c(1, 1, 1, 2), &quot;cm&quot;)) +
-  theme(panel.grid.major = element_blank(),
+        plot.margin = unit(c(1, 1, 1, 2), &quot;cm&quot;),
+        panel.grid.major = element_blank(),
         panel.grid.major.y = element_line(linetype = &quot;dashed&quot;, color = &quot;gray&quot;),
-      panel.background = element_rect(fill = &quot;white&quot;)) +
+        panel.background = element_rect(fill = &quot;white&quot;)) +
+  # Definir límites y intervalos del eje y
   scale_y_continuous(limits = c(0, 18), breaks = seq(0, 18, 2)) +
-  scale_x_date(date_labels=&quot;%b-%y&quot;, date_breaks = &quot;4 months&quot;, limits = c(min(as.Date(&quot;2020-01-01&quot;)), max(as.Date(&quot;2022-01-01&quot;))), breaks = seq(min(as.Date(&quot;2020-01-01&quot;)), max(as.Date(&quot;2022-01-01&quot;)), by=&quot;4 month&quot;))</code></pre>
+  # Definir formato de fecha en eje x, con intervalos de 4 meses
+  scale_x_date(date_labels=&quot;%b-%y&quot;, date_breaks = &quot;4 months&quot;, 
+               limits = c(min(as.Date(&quot;2020-01-01&quot;)), max(as.Date(&quot;2022-01-01&quot;))), 
+               breaks = seq(min(as.Date(&quot;2020-01-01&quot;)), max(as.Date(&quot;2022-01-01&quot;)), by=&quot;4 month&quot;))</code></pre>
 <pre><code>## Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use &quot;none&quot; instead as
 ## of ggplot2 3.3.4.</code></pre>
 <pre><code>## Scale for x is already present.

@@ -24,24 +24,35 @@ covid_data$date <- as.Date(covid_data$date, format = "%Y-%m-%d")
 paises <- c("Spain", "United States", "Italy", "Germany", "Portugal")
 covid_data <- subset(covid_data, location %in% paises)
 
-ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, size = ifelse(location == "Spain", "Spain", "Otros países"))) +
+ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, 
+                        size = ifelse(location == "Spain", "Spain", "Otros países"))) +
   geom_line() +
-  scale_color_manual(values = c("United States" = "blue", "Italy" = "red", "Germany" = "green", "Portugal" = "orange", "Spain" = "black")) +
+  # Definir colores para cada país
+  scale_color_manual(values = c("United States" = "blue", "Italy" = "red", "Germany" = "green", 
+                                 "Portugal" = "orange", "Spain" = "black")) +
   scale_size_manual(values = c("Spain" = 1.4, "Otros países" = 0.7)) +
+    # Eliminar leyenda para el tamaño
   guides(size = FALSE) +
   labs(title = "Daily new confirmed COVID-19 deaths per million people",
        subtitle = "7-day rolling average. For some countries the number of confirmed deaths is much lower than the number of deaths.",
        x = "Fecha",
        y = "Muertes por millón de habitantes") +
+  # Definir formato de fecha en eje x
   scale_x_date(date_labels = "%b %d,%Y") +
+  # Rotar etiquetas del eje x
   theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=0.25)) +
+  # Añadir formato al título y subtítulo
   theme(plot.title = element_text(hjust = 0.35, face = "bold", size = 16),
         plot.subtitle = element_text(hjust = 0.35, size = 9),
-        plot.margin = unit(c(1, 1, 1, 2), "cm")) +
-  theme(panel.grid.major = element_blank(),
+        plot.margin = unit(c(1, 1, 1, 2), "cm"),
+        panel.grid.major = element_blank(),
         panel.grid.major.y = element_line(linetype = "dashed", color = "gray"),
-      panel.background = element_rect(fill = "white")) +
+        panel.background = element_rect(fill = "white")) +
+  # Definir límites y intervalos del eje y
   scale_y_continuous(limits = c(0, 18), breaks = seq(0, 18, 2)) +
-  scale_x_date(date_labels="%b-%y", date_breaks = "4 months", limits = c(min(as.Date("2020-01-01")), max(as.Date("2022-01-01"))), breaks = seq(min(as.Date("2020-01-01")), max(as.Date("2022-01-01")), by="4 month"))
+  # Definir formato de fecha en eje x, con intervalos de 4 meses
+  scale_x_date(date_labels="%b-%y", date_breaks = "4 months", 
+               limits = c(min(as.Date("2020-01-01")), max(as.Date("2022-01-01"))), 
+               breaks = seq(min(as.Date("2020-01-01")), max(as.Date("2022-01-01")), by="4 month"))
 ```
 
