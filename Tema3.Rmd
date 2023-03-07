@@ -11,8 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r, fig.width=10, fig.height=8}
-library(magrittr)
 library(ggplot2)
+library(plotly)
 
 if (!file.exists("data.csv")) {
   file <- download.file("https://covid.ourworldindata.org/data/owid-covid-data.csv", "data.csv")
@@ -24,7 +24,7 @@ covid_data$date <- as.Date(covid_data$date, format = "%Y-%m-%d")
 paises <- c("Spain", "United States", "Italy", "Germany", "Portugal")
 covid_data <- subset(covid_data, location %in% paises)
 
-ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, 
+g <- ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = location, 
                         size = ifelse(location == "Spain", "Spain", "Otros países"))) +
   geom_line() +
   # Definir colores para cada país
@@ -54,5 +54,7 @@ ggplot(covid_data, aes(x = date, y = new_deaths_smoothed_per_million, col = loca
   scale_x_date(date_labels="%b-%y", date_breaks = "4 months", 
                limits = c(min(as.Date("2020-01-01")), max(as.Date("2022-01-01"))), 
                breaks = seq(min(as.Date("2020-01-01")), max(as.Date("2022-01-01")), by="4 month"))
+
+ggplotly(g)
 ```
 
